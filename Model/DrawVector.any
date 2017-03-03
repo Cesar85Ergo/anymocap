@@ -8,7 +8,7 @@ Line = {
 #var RGB = RGB5; 
 };
 #var AnyVar size=0.05;
-Visible = On;
+Visible = Off;
 Line.Style = Line3DStyleFull;
 Line.Thickness=0.1*size;
 Line.End.Thickness =0.3*size;             
