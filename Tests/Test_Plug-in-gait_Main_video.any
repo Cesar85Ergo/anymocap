@@ -4,7 +4,7 @@
 //]
 //ignore_errors = ['FileReader.FileName']
 
-//#path AMMR_PATH "C:\Users\mel\Documents\AMMRs\ammr-beta"
+#path AMMR_PATH "C:\Users\mel\Documents\AMMRs\ammr-beta"
 
 #include "C:\Users\mel\Documents\anyscript_videomaker\CameraClassTemplate.any"
 
@@ -43,25 +43,25 @@ Main = {
     
     AnyVar ts = Main.ModelSetup.TrialSpecificData.tStart;
     AnyVar te = Main.ModelSetup.TrialSpecificData.tEnd;
-    AnyVar W = 2*pi*(Main.Studies.InverseDynamicStudy.t-ts)/(te-ts);
+    AnyVar W = pi/4+2*pi*(Main.Studies.InverseDynamicStudy.t-ts)/(te-ts);
     
     // The camera direction is time dependent to make a rotating camera. 
-    LookPoint2Camera_direction = {cos(W), 0.2, sin(W) };
+    LookPoint2Camera_direction = {cos(W), 0.4, sin(W) };
     
     // The point in global reference which the camera looks at. 
-    LookAtPoint = Main.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.r+{0,-0.3,0};
+    LookAtPoint = Main.HumanModel.BodyModel.Right.Leg.Seg.Foot.r+{0,0,0};
     
     // Override the default camera counter with the time step from the study.
     // This ensures that we only save the images from the analysis. 
     Counter = Main.Studies.InverseDynamicStudy.iStep + floor(0*W);
     
-    VerticalFieldOfView = 2.3;
+    VerticalFieldOfView = 0.5;
     
-    InputFrameRate = floor(N_STEP/(te-ts));
+    InputFrameRate = floor(0.5*N_STEP/(te-ts));
      
     // The sequence of analysis to make the recording from.
     Analysis = {
-      AnyOperation &ref = Main.Studies.InverseDynamicStudy.Replay;
+      AnyOperation &ref = Main.Studies.InverseDynamicStudy.InverseDynamics;
     };
   };
   
